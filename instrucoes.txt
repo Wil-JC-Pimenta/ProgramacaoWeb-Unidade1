@@ -1,0 +1,176 @@
+Prezados Alunos, iniciamos aqui a Atividade Avaliativa I - Fórum.  
+
+Nessa atividade vamos ter a oportunidade de executar um projeto web no Eclipse, e ver na prática o uso do protocolo HTTP e a troca de mensagens em uma arquitetura cliente-servidor usando a tecnologia de Servlets. 
+
+Vamos estudar Servlets na Unidade 2, por isso não se preocupe muito com a parte de programação Java aqui nessa atividade, ok? O objetivo aqui é conseguir configurar e rodar o projeto, para então analisar os resultados da execução.
+
+Para realizar essa atividade você vai precisar de um compilador Java, o Eclipse e o Tomcat devidamente instalados no seu computador.  
+
+Importante: Siga as instruções dos vídeos abaixo para configurar essas ferramentas, antes de prosseguir. 
+
+Instalação do OpenJDK (compilador Java): Como instalar o OpenJDK 8 
+ https://youtu.be/eVaNZkPAw7A
+Instalação do Eclipse: Instalação do Eclipse 
+ https://youtu.be/zhtBzuRPh2Y
+Instalação do Tomcat: Instalando e configurando o Tomcat no Eclipse 
+ https://youtu.be/3j1gHlvXaSo
+Certo, então você já está com todas as ferramentas acima funcionando?  
+
+Seu Eclipse já está preparado para executar um projeto web no Tomcat?  
+
+Se sim, vamos em frente! 
+
+Você deve agora fazer o download do arquivo abaixo, e extrair seu conteúdo usando algum software de descompactação (como o 7zip). 
+
+---- projeto.zip ---- 
+
+O arquivo contém um projeto web desenvolvido em Java, que precisaremos importar no Eclipse. 
+
+Para fazer isso, siga as instruções abaixo: 
+
+- Com o Eclipse aberto, clique no menu "File", depois em "Import..." 
+
+- Selecione a opção "General", depois "Existing Projects into WorksPace", depois clique no botão "Next" 
+
+- Na janela "Import Projects", clique agora no botão "Browse..." 
+
+- Vá até a pasta onde o arquivo "projeto.zip" foi extraído (por exemplo, C:\temp\ProjetoForumUnidade1), depois clique no botão "Selecionar Pasta" 
+
+- Agora, com o projeto "ProjetoForumUnidade1" selecionado na lista "Projects" da janela "Import Projects", clique no botão "Finish" 
+
+Veja que o projeto "ProjetoForumUnidade1" agora aparece na aba "Project Explorer" do Eclipse. 
+
+Conseguiu chegar até aqui? Excelente! Você já está com tudo quase pronto para iniciarmos, mas antes disso, vamos entender um pouco do projeto....
+
+O projeto que disponibilizei nessa atividade consiste de uma página web onde você poderá fazer o cadastro de um ou mais alunos. 
+
+Abra a pasta "WebContent". Dê uma olhada no que tem dentro dela. Você vai encontrar ali o arquivo "index.jsp". Esse arquivo é a página JSP onde está o formulário onde iremos informar os dados de um aluno. Nela, também, você vai encontrar uma tabela que será usada para mostrar os alunos que foram cadastrados.  
+
+Dentro da pasta "WebContent" você vai encontrar, também, a pasta "WEB-INF". Essa pasta, como veremos na Unidade 2, faz parte da organização de pastas de uma aplicação web em Java. Não vamos mexer nela, ok? 
+
+Abra agora a pasta "src". Dê uma olhada no que tem dentro dela. Você vai encontrar duas classes Java: "CadastrarAlunoServlet" e "Aluno". A primeira classe é um servlet, e ele será chamado quando você clicar no botão "Confirmar Cadastro", lá na página "index.jsp". A segunda classe é bem simples, vamos usar ela só para guardar os dados de um aluno (nome, sexo e semestre). 
+
+Observe, lá na página "index.jsp" que nosso Servlet será chamado porque nosso formulário foi assim definido:  
+
+<form action="CadastrarAlunoServlet" method="get"> 
+
+O "action" do form, nesse caso, aponta para o servlet, que é uma classe Java que foi configurada com a seguinte anotação: 
+
+@WebServlet("/CadastrarAlunoServlet")
+
+Vamos agora ao objetivo principal dessa atividade: executar o projeto, e analisar o código da aplicação.  
+
+Para executar o projeto, siga os seguintes passos: 
+
+- Clique com o botão direito do mouse no nome do projeto (ali onde está escrito "ProjetoForumUnidade1")  
+
+- No menu que foi aberto, selecione agora opção "Run As", depois a opção "Run On Server" 
+
+O Eclipse vai mostrar uma janela pedindo para você escolher o servidor onde a aplicação será executada. Selecione o Tomcat que você instalou (e configurou anteriormente), depois clique em "Finish". 
+
+Se tudo der certo (tenha fé, vai dar!), você vai ver na guia "Console" o Tomcat sendo inicializado, e ao final da inicialização a seguinte mensagem: "Server startup in xxx ms" 
+
+Finalmente, abra um navegador web, informando o seguinte endereço: http://localhost:8080/ProjetoForumUnidade1/ 
+
+Você deverá ver a página inicial da aplicação.  
+
+Parabéns por chegar até aqui!  
+
+Podemos agora iniciar o trabalho. Com a página aberta, faça o seguinte: 
+
+1) Informe os dados para o cadastro de um aluno, depois clique no botão "Confirmar Cadastro". Responda: o que aconteceu? (0.1 pontos) 
+
+2) Responda: qual é a url que está aparecendo na barra de endereço do seu navegador? (dica: a url começa com http://localhost:8080/ProjetoForumUnidade1) (0.1 pontos) 
+
+3) Abra o arquivo "index.jsp", e lá na tag "form", troque o método "get" por "post". Seu formulário vai ficar assim: 
+
+    <form action="CadastrarAlunoServlet" method="post"> 
+
+Salve o arquivo "index.jsp" 
+
+Abra novamente a página inicial da aplicação, informando o seguinte endereço: http://localhost:8080/ProjetoForumUnidade1/ 
+
+Tente agora cadastrar um novo aluno. Responda: o que aconteceu? (0.1 pontos) 
+
+4) Responda: qual é a url que está aparecendo na barra de endereço do seu navegador? (dica: a url começa com http://localhost:8080/ProjetoForumUnidade1) (0.1 pontos) 
+
+5) Responda: o que mudou na url do item 4, comparado com a url encontrada no item 2? (0.1 pontos) 
+
+Explicação: essa mudança ocorre devido à maneira como o formulário está sendo submetido. Tanto com get quanto com post os dados são enviados ao servidor, mas de formas diferentes.   
+
+6) Vamos agora abrir a classe "CadastrarAlunoServlet". Feito isso, comente o método "service", para que ele fique assim: 
+
+//    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+//        processarRequisicao(request, response) ; 
+//    } 
+
+Descomente também o método "doGet", logo abaixo. Seu código deverá ficar assim: 
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+        processarRequisicao(request, response); 
+    } 
+
+Salve o arquivo "CadastrarAlunoServlet.java" e clique no item de menu "Project", depois "Clean...." para que o Eclipse atualize o código do Servlet. 
+
+Abra novamente a página inicial da aplicação, informando o seguinte endereço: http://localhost:8080/ProjetoForumUnidade1/ 
+
+Tente cadastrar um novo aluno. Responda: o que aconteceu? (0.1 pontos) 
+
+7) Descomente, agora, o método "doPost", na classe "CadastrarAlunoServlet". Seu código deverá ficar assim: 
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+        processarRequisicao(request, response); 
+    } 
+
+Salve o arquivo "CadastrarAlunoServlet.java" e clique no item de menu "Project", depois "Clean...." para que o Eclipse atualize o código do Servlet. 
+
+Abra novamente a página inicial da aplicação, informando o seguinte endereço: http://localhost:8080/ProjetoForumUnidade1/ 
+
+Tente cadastrar um novo aluno. Responda: o que aconteceu? (0.1 pontos) 
+
+Importante: repare que os três métodos (service, doGet e doPost) chamam o método "processarRequisicao" para tratar a requisição http. 
+
+8) Tente cadastrar agora, dois ou três alunos. Responda: quantos alunos aparecem na tabela? (0.1 pontos) 
+
+9) Feito isso, abra a classe "CadastrarAlunoServlet". Comente a linha contendo o código abaixo: 
+
+    HttpSession escopoLista = request.getSession() ; 
+
+Descomente, também, a linha logo abaixo. Seu código deverá ficar assim: 
+
+    // HttpSession escopoLista = request.getSession() ; 
+    HttpServletRequest escopoLista = request ; 
+
+Salve o arquivo "CadastrarAlunoServlet.java" e clique no item de menu "Project", depois "Clean...." para que o Eclipse atualize o código do Servlet. 
+
+Abra novamente a página inicial da aplicação, informando o seguinte endereço: http://localhost:8080/ProjetoForumUnidade1/ 
+
+Tente cadastrar agora dois ou três alunos. Responda: quantas linhas aparecem na tabela? (0.1 pontos) 
+
+Importante: Dê uma olhada no código que aparece dentro do método "processarRequisicao". Atente aos comentários que coloquei no código, para entendê-lo melhor.  
+
+Repare que estávamos guardando (e recuperando) nossa lista de alunos na sessão do usuário (usando para isso os métodos "setAttribute" e "getAttribute"). Com a alteração do item anterior, no entanto, passamos a guardar essa lista em outro lugar... 
+
+10) Com base nessa análise, e no resultado observado nos itens 8 e 9, responda: o que acontece quando armazenamos a lista no escopo de sessão? E quando armazenamos ela no escopo da requisição? (0.1 pontos)
+
+IMPORTANTE:  
+
+- Responda aos itens de 1 a 10 por meio de uma postagem no fórum (não envie sua resposta em documentos do word ou documentos pdf).   
+
+- Deixe claro, na sua postagem, a resposta de cada item. Por exemplo:  
+
+    1) xxxxx 
+    2) yyyyy 
+    ... 
+
+- Tente ser breve e objetivo na sua resposta (por favor!) 
+
+- Atenção, pois a postagem será avaliada uma única vez! 
+
+Então agora.... Mãos à obra! 
+
+E bom trabalho!
+
+Luan da Silva Borges Leal
+
+Professor Tutor Católica EAD
